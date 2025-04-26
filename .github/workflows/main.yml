@@ -1,29 +1,33 @@
 name: Weekly Sales Report Automation
 
+# The cron job is set to run every Monday at 6:00 AM UTC (11:30 AM IST)
 on:
   schedule:
-    - cron: '0 6 * * 1'  # This will run every Monday at 6:00 AM UTC (11:30 AM IST)
-  workflow_dispatch:  # Allows manual triggering of the workflow if needed
+    - cron: '0 6 * * 1'  # 6:00 AM UTC every Monday (which is 11:30 AM IST)
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      # Step 1: Checkout the repository to get the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Use Python 3.x
 
-   - name: Install dependencies
-  run: |
-    pip install -r config/requirements.txt
-    # Install dependencies from requirements.txt
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r config/requirements.txt  # Path to requirements.txt inside the 'config' folder
 
-    - name: Run weekly sales report script
-      run: |
-        python weekly_sales_report.py  # Your Python script to run the sales report automation
+      # Step 4: Run the sales report script
+      - name: Run the sales report script
+        run: python weekly_sales_report.py  # Ensure the script name matches your file
+
 
