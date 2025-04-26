@@ -2,8 +2,8 @@ name: Weekly Sales Report Automation
 
 on:
   schedule:
-    - cron: '0 6 * * 1'  # Scheduled run: Every Monday at 6:00 AM UTC (11:30 AM IST)
-  workflow_dispatch:  # Allow manual trigger from the GitHub UI
+    - cron: '30 6 * * 1'  # Every Monday at 6:30 AM UTC (11:30 AM IST)
+  workflow_dispatch:  # This allows manual triggering of the workflow from GitHub
 
 jobs:
   deploy:
@@ -26,6 +26,5 @@ jobs:
       - name: Run weekly sales report script
         run: |
           python weekly_sales_report.py
-
 
 
